@@ -18,9 +18,7 @@ const copy = promisify(ncp);
  * @returns {Promise<Promise<never>|undefined>}
  */
 async function initCreateReactApp(options) {
-    const result = await execa.command(`npx create-react-app ${options.projectName}`, {
-        cwd: options.targetDirectory,
-    });
+    const result = await execa.command(`npx create-react-app ${options.projectName}`);
     if (result.failed) {
         return Promise.reject(new Error('Failed to initialize git'));
     }
@@ -50,30 +48,11 @@ export async function createProject(options) {
         process.exit(1);
     }
     const tasks = new Listr([
-        // {
-        //     title: 'Copy project files',
-        //     task: () => copyTemplateFiles(options),
-        // },
-        // {
-        //     title: 'Initialize git',
-        //     task: () => initGit(options),
-        //     enabled: () => options.git,
-        // },
-        // {
-        //     title: 'Install dependencies',
-        //     task: () =>
-        //         projectInstall({
-        //             cwd: options.targetDirectory,
-        //         }),
-        //     skip: () =>
-        //         !options.runInstall
-        //             ? 'Pass --install to automatically install dependencies'
-        //             : undefined,
-        // },
         {
             title: 'Init create-react-app. It can takes a few minutes!!!',
             task: () => initCreateReactApp(options)
         },
+
         {
             title: 'Remove default src folder of create-react-app',
             task: () => removeSrcCreateReactApp(options),
@@ -91,6 +70,8 @@ export async function createProject(options) {
     ]);
 
     await tasks.run();
-    console.log(`%s Project ready. cd ${options.projectName} and start. Happy coding ^^`, chalk.green.bold('DONE'));
+    console.log('%s Project ready.', chalk.green.bold('DONE'));
+    console.log(`cd ${options.projectName}/`);
+    console.log('npm start');
     return true;
 }

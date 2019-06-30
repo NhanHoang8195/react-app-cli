@@ -1,22 +1,25 @@
 {
-  "name": "projects",
+  "name": "cra-structure-cli",
   "version": "1.0.0",
-  "description": "A CLI help to build fast react app structure",
+  "description": "A CLI help to build fast a react app structure",
   "main": "index.js",
   "publishConfig": {
     "access": "public"
   },
   "bin": {
-    "create-project": "bin/create-react-structure.js"
+    "cra-structure-cli": "bin/create-react-structure.js"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "files": [
+    "bin/",
+    "src/",
+    "templates/"
+  ],
   "keywords": [
     "cli",
-    "create-react-structure"
+    "create-react-app-structure-cli",
+    "react-app-structure"
   ],
-  "author": "",
+  "author": "@nhanhoang8195",
   "license": "ISC",
   "dependencies": {
     "arg": "^4.1.0",
