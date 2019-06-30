@@ -9,6 +9,7 @@
   "bin": {
     "cra-structure-cli": "bin/create-react-structure.js"
   },
+  "preferGlobal": true,
   "files": [
     "bin/",
     "src/",
