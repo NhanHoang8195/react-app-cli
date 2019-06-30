@@ -1,8 +1,8 @@
 This project build a tool that help initiate react structure fast. And it bootstrap [Create React App](https://github.com/facebook/create-react-app).  
 **How to use this package**  
 Open termial and run following commands:
-1. `npm install -g create-react-app-structure-cli`
-2. `create-react-app-structure-cli my-app`
+1. `npm install -g cra-structure-cli`
+2. `cra-structure-cli my-app`
 
 Wait a few minutes and this will create for you a folder named `my-app` and this is your project folder.
 
