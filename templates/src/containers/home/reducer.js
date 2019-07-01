@@ -10,17 +10,19 @@ const initialState = Map({
     isLoadingData: false,
     error: null,
 });
-function reducer(state = initialState, action) {
-    switch (action.type) {
-        case HOME_GET_DATA_START:
-            return state.set('isLoadingData', true);
-        case HOME_GET_DATA_SUCCESS:
-            return state.set('isLoadingData', false).set('data', action.payload);
-        case HOME_GET_DATA_FAILURE:
-            return state.set('isLoadingData', false).set('error', action.error);
-        default:
-            return initialState;
-    }
-}
+const handlerMaps = {};
 
-export default reducer;
+handlerMaps[HOME_GET_DATA_START] = (state) => {
+  return state.set('isLoadingData', true);
+};
+handlerMaps[HOME_GET_DATA_SUCCESS] = (state, action) => {
+  return state.set('isLoadingData', false).set('data', action.payload);
+};
+handlerMaps[HOME_GET_DATA_FAILURE] = (state, action) => {
+  return state.set('isLoadingData', false).set('error', action.error);
+};
+
+export default (state = initialState, action) => {
+  const fn = handlerMaps[action.type];
+  return fn ? fn(state, action) : state;
+};

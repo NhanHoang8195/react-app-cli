@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React  from 'react';
 import { bindActionCreators } from 'redux/es/redux';
 import { connect } from 'react-redux';
 import * as actions from './actions';

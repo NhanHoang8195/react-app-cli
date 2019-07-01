@@ -16,10 +16,9 @@
     "templates/"
   ],
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/NhanHoang8195/create-react-app-structure-cli.git"
+    "type": "git",
+    "url": "https://github.com/NhanHoang8195/create-react-app-structure-cli.git"
   },
-
   "keywords": [
     "cli",
     "create-react-app-structure-cli",

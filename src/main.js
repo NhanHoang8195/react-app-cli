@@ -1,4 +1,3 @@
-
 import chalk from 'chalk';
 import fs from 'fs';
 import ncp from 'ncp';
@@ -7,7 +6,7 @@ import { promisify } from 'util';
 import execa from 'execa';
 import Listr from 'listr';
 import fse from 'fs-extra';
-import { projectInstall } from 'pkg-install';
+import { projectInstall, install } from 'pkg-install';
 
 const access = promisify(fs.access);
 const copy = promisify(ncp);
@@ -33,8 +32,22 @@ async function initCreateReactApp(options) {
 async function copyTemplateFiles(options) {
     return copy(options.templateDirectory, options.targetTemplateDicrectory);
 }
+
+/**
+ * Remove default src folder after create-react-app.
+ * @param options
+ * @returns {Promise<*>}
+ */
 async function removeSrcCreateReactApp(options) {
     return await fse.remove(path.join(options.targetTemplateDicrectory, '/src'));
+}
+
+async function installDependencies(options) {
+    const packages = ['axios', 'immutable', 'node-sass', 'prop-types', 'react-redux',
+        'react-router-dom', 'redux', 'redux-logger', 'redux-thunk'];
+    return await install(packages, {
+        cwd: options.targetTemplateDicrectory
+    });
 }
 export async function createProject(options) {
     try {
@@ -52,7 +65,10 @@ export async function createProject(options) {
             title: 'Init create-react-app. It can takes a few minutes!!!',
             task: () => initCreateReactApp(options)
         },
-
+        {
+            title: 'Installing dependencies. It can takes a few minutes!!!',
+            task: () => installDependencies(options)
+        },
         {
             title: 'Remove default src folder of create-react-app',
             task: () => removeSrcCreateReactApp(options),
@@ -60,12 +76,6 @@ export async function createProject(options) {
         {
             title: 'Copy template',
             task: () => copyTemplateFiles(options)
-        },
-        {
-            title: 'Installing dependencies to start. It can takes a few minutes!!!',
-            task: () => projectInstall({
-                cwd: options.targetTemplateDicrectory
-            }),
         }
     ]);
 
