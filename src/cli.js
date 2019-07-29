@@ -23,20 +23,14 @@ import { createProject } from './main';
 
 function parseArgumentsIntoOptions(rawArgs) {
     const args = arg({
-        '--git': Boolean,
-        '--yes': Boolean,
-        '--install': Boolean,
-        '-g': '--git',
-        '-y': '--yes',
-        '-i': '--install',
+        '--typescript': Boolean,
+        '-ts': '--typescript'
     }, {
         argv: rawArgs.slice(2),
     });
     return {
-        skipPrompts: args['--yes'] || false,
-        git: args['--git'] || false,
-        projectName: args._[0] || 'my-app-with-project-structure',
-        runInstall: args['--install'] || false,
+        projectName: args._[0] || 'my-app',
+        typeScript: args['--typescript'] || false,
     }
 }
 

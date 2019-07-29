@@ -1,6 +1,6 @@
 {
   "name": "cra-structure-cli",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A CLI with bootstrap create-react-app. Initiate react project.",
   "main": "index.js",
   "publishConfig": {

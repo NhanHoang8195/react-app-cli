@@ -1,0 +1,38 @@
+{
+  "extends": ["eslint:recommended", "react-app"],
+  "plugins": [
+    "react-hooks",
+    "react"
+  ],
+  "rules": {
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
+    "no-trailing-spaces": 2,
+    "no-extra-semi": 2,
+    "semi": 2,
+    "indent": [2, 2],
+    "quotes": [2, "single"],
+    "jsx-quotes": [2, "prefer-single"],
+    "no-multi-spaces": 2,
+    "no-console": 1,
+    "spaced-comment": 2,
+    "block-spacing": 2,
+    "object-curly-spacing": [2, "always"],
+    "array-bracket-spacing": 2,
+    "brace-style": 2,
+    "comma-spacing": 2,
+    "no-mixed-spaces-and-tabs": 2,
+    "semi-spacing": 2,
+    "keyword-spacing": 2,
+    "comma-style": 2,
+    "no-unused-vars": 2,
+    "no-warning-comments": 0,
+    "comma-dangle": [
+      2,
+      "always-multiline",
+      "error",
+      {"functions": "ignore"}
+    ],
+    "react/prop-types": [2]
+  }
+}

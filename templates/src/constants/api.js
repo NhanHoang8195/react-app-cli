@@ -1,1 +1,0 @@
-export const GET_HOME_PAGE_DATA_URL = 'https://reqres.in/api/users';

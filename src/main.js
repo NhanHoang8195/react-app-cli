@@ -17,11 +17,10 @@ const copy = promisify(ncp);
  * @returns {Promise<Promise<never>|undefined>}
  */
 async function initCreateReactApp(options) {
-    const result = await execa.command(`npx create-react-app ${options.projectName}`);
+    const result = await execa.command(`npx create-react-app ${options.projectName} ${options.typeScript && '--typescript'}`);
     if (result.failed) {
         return Promise.reject(new Error('Failed to initialize git'));
     }
-    return;
 }
 
 /**
@@ -44,14 +43,18 @@ async function removeSrcCreateReactApp(options) {
 
 async function installDependencies(options) {
     const packages = ['axios', 'immutable', 'node-sass', 'prop-types', 'react-redux',
-        'react-router-dom', 'redux', 'redux-logger', 'redux-thunk'];
+        'react-router-dom', 'redux', 'redux-logger', 'redux-thunk', 'eslint-plugin-react', 'eslint-plugin-react-hooks'];
     return await install(packages, {
         cwd: options.targetTemplateDicrectory
     });
 }
+async function initialCommit() {
+    execa.command(`git add .`);
+    execa.command(`git commit -m "Init commit from cra-react-cli"`);
+}
 export async function createProject(options) {
     try {
-        const templateDir = path.resolve(__dirname, '..', 'templates');
+        const templateDir = path.resolve(__dirname, '..', `${options.typeScript ? 'templates/typescript': 'templates/javascript'}`);
         await access(templateDir, fs.constants.R_OK);
         options.templateDirectory = templateDir;
         options.targetTemplateDicrectory = path.join(process.cwd(), `/${options.projectName}`);
@@ -76,6 +79,10 @@ export async function createProject(options) {
         {
             title: 'Copy template',
             task: () => copyTemplateFiles(options)
+        },
+        {
+            title: 'Init commit',
+            task: () => initialCommit()
         }
     ]);
 
