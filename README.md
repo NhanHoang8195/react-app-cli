@@ -4,6 +4,9 @@ Open termial and run following commands:
 1. `npm install -g cra-structure-cli`
 2. `cra-structure-cli my-app`
 
+You can choose to initiate project with typescript by add --typescript or -ts parameter like:  
+`npx cra-`
+  
 Wait a few minutes and this will create for you a folder named `my-app` and this is your project folder.
 
 **How to test your project**

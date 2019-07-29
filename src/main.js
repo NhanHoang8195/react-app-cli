@@ -48,9 +48,14 @@ async function installDependencies(options) {
         cwd: options.targetTemplateDicrectory
     });
 }
-async function initialCommit() {
-    execa.command(`git add .`);
-    execa.command(`git commit -m "Init commit from cra-react-cli"`);
+async function initialCommit(options) {
+    try {
+        await execa.command('git add -A', {cwd: options.targetTemplateDicrectory});
+        await execa('git', ['commit', '-m "Init commit from cra-react-cli"'], {cwd: options.targetTemplateDicrectory});
+    } catch (error) {
+        console.log('DONT WORRY ABOUT THESE ERROR, YOU CAN STILL START YOUR PROJECT.');
+        console.log(error);
+    }
 }
 export async function createProject(options) {
     try {
@@ -82,7 +87,7 @@ export async function createProject(options) {
         },
         {
             title: 'Init commit',
-            task: () => initialCommit()
+            task: () => initialCommit(options)
         }
     ]);
 
